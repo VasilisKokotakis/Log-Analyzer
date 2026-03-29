@@ -1,0 +1,22 @@
+{
+  "name": "Jira",
+  "description": "Jira Software API connector",
+  "request_patterns": [
+    {
+      "regex": "/request:\\s*(?P<endpoint>[^:\\s]+):\\s*(?P<error_type>Recoverable fail|Unrecoverable fail)\\[[^\\]]*\\](?:\\[[^\\]]*\\])*\\{CODE:(?P<code>\\d+)\\}.*Body:\\s*(?P<body_json>\\{.*?\\})(?=\\s*$|\\s+Wed|\\s+Nov|\\s+\\[|$)",
+      "has_json_body": true,
+      "body_fields": ["message", "errorMessages"]
+    },
+    {
+      "regex": "/request:\\s*(?P<endpoint>[^:\\s]+):\\s*(?P<error_type>Recoverable fail|Unrecoverable fail)\\[[^\\]]*\\](?:\\[[^\\]]*\\])*\\{CODE:(?P<code>\\d+)\\}",
+      "has_json_body": false
+    }
+  ],
+  "path_pattern": "Failed to get folder content:\\s*(/[^.]+?)(?:\\. Cause:|$)",
+  "path_depth": 2,
+  "report": {
+    "title": "JIRA FAILURE ANALYSIS REPORT",
+    "requests_section": "REQUEST FAILURE SUMMARY",
+    "paths_section": "FOLDER/ENTITY FAILURE SUMMARY"
+  }
+}
